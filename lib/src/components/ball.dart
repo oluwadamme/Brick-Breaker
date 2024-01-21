@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:brick_breaker/src/brick_breaker.dart';
 import 'package:brick_breaker/src/components/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+
+import '../config.dart';
 
 class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<BrickBreaker> {
   Ball({
@@ -45,6 +45,17 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
     } else if (other is Bat) {
       velocity.y = -velocity.y;
       velocity.x = velocity.x + (position.x - other.position.x) / other.size.x * game.width * 0.3;
+    } else if (other is Brick) {
+      if (position.y < other.position.y - other.size.y / 2) {
+        velocity.y = -velocity.y;
+      } else if (position.y > other.position.y + other.size.y / 2) {
+        velocity.y = -velocity.y;
+      } else if (position.x < other.position.x) {
+        velocity.x = -velocity.x;
+      } else if (position.x > other.position.x) {
+        velocity.x = -velocity.x;
+      }
+      velocity.setFrom(velocity * difficultyModifier);
     } else {
       debugPrint('collision with $other');
     }
