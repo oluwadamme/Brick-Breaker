@@ -25,6 +25,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   final rand = math.Random();
 
   final ValueNotifier<int> score = ValueNotifier(0);
+  final ValueNotifier<int> level = ValueNotifier(1);
 
   late PlayState _playState;
   PlayState get playState => _playState;
@@ -61,11 +62,14 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
 
     playState = PlayState.playing;
     score.value = 0;
-    world.add(Ball(
+    world.add(
+      Ball(
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
         position: size / 2,
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4)));
+        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4),
+      ),
+    );
 
     world.add(Bat(
       size: Vector2(batWidth, batHeight),
@@ -73,17 +77,19 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
       position: Vector2(width / 2, height * 0.95),
     ));
 
-    world.addAll([
-      for (var i = 0; i < brickColors.length; i++)
-        for (var j = 1; j <= 5; j++)
-          Brick(
-            Vector2(
-              (i + 0.5) * brickWidth + (i + 1) * brickGutter,
-              (j + 2.0) * brickHeight + j * brickGutter,
+    world.addAll(
+      [
+        for (var i = 0; i < brickColors.length; i++)
+          for (var j = 1; j <= 7; j++)
+            Brick(
+              Vector2(
+                (i + 0.5) * brickWidth + (i + 1) * brickGutter,
+                (j + 2.0) * brickHeight + j * brickGutter,
+              ),
+              brickColors[i],
             ),
-            brickColors[i],
-          ),
-    ]);
+      ],
+    );
   }
 
   @override

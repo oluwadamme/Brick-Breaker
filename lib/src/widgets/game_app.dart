@@ -52,7 +52,7 @@ class _GameAppState extends State<GameApp> {
               child: Center(
                 child: Column(
                   children: [
-                    ScoreCard(score: game.score),
+                    ScoreCard(score: game.score, level: game.level),
                     Expanded(
                       child: FittedBox(
                         child: SizedBox(
