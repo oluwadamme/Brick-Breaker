@@ -61,10 +61,13 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
     world.removeAll(world.children.query<Brick>());
 
     playState = PlayState.playing;
-    score.value = 0;
+    if (level.value == 1) {
+      score.value = 0;
+    }
+
     world.add(
       Ball(
-        difficultyModifier: difficultyModifier,
+        difficultyModifier: difficultyModifier + ((level.value - 1) / 100),
         radius: ballRadius,
         position: size / 2,
         velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4),
@@ -96,6 +99,9 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   void onTap() {
     super.onTap();
     startGame();
+    // if (condition) {
+
+    // }
   }
 
   @override
