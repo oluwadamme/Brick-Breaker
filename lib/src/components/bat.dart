@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:brick_breaker/src/brick_breaker.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
