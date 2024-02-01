@@ -30,10 +30,6 @@ class Brick extends RectangleComponent with CollisionCallbacks, HasGameReference
       game.playState = PlayState.won;
       game.world.removeAll(game.world.children.query<Ball>());
       game.world.removeAll(game.world.children.query<Bat>());
-      final value = game.overlays.add(game.playState.name);
-      log(value.toString());
-      game.level.value++;
-      game.startGame();
     }
   }
 }

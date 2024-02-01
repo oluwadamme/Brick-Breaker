@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:brick_breaker/src/brick_breaker.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -28,16 +30,21 @@ class Bat extends PositionComponent with DragCallbacks, HasGameReference<BrickBr
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
-    position.x = (position.x + event.localDelta.x).clamp(width / 2, game.width - width / 2);
+
+    if (game.isPlaying.value) {
+      position.x = (position.x + event.localDelta.x).clamp(width / 2, game.width - width / 2);
+    }
   }
 
   void moveBy(double dx) {
-    add(MoveToEffect(
-      Vector2(
-        (position.x + dx).clamp(width / 2, game.width - width / 2),
-        position.y,
-      ),
-      EffectController(duration: 0.1),
-    ));
+    if (game.isPlaying.value) {
+      add(MoveToEffect(
+        Vector2(
+          (position.x + dx).clamp(width / 2, game.width - width / 2),
+          position.y,
+        ),
+        EffectController(duration: 0.1),
+      ));
+    }
   }
 }

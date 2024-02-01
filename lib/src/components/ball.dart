@@ -21,7 +21,9 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
   @override
   void update(double dt) {
     super.update(dt);
-    position += velocity * dt;
+    if (game.isPlaying.value) {
+      position += velocity * dt;
+    }
   }
 
   @override
@@ -40,8 +42,6 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
             delay: 0.35,
             onComplete: () {
               game.playState = PlayState.gameOver;
-              game.level.value = 1;
-              game.score.value = 0;
             }));
       }
     } else if (other is Bat) {

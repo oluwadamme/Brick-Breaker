@@ -69,6 +69,10 @@ class _GameAppState extends State<GameApp> {
                                     title: 'G A M E   O V E R',
                                     subtitle: 'Tap to Play Again',
                                   ),
+                              PlayState.pause.name: (context, _) => const OverlayScreen(
+                                    title: 'G A M E  P A U S E',
+                                    subtitle: 'Tap to Continue ',
+                                  ),
                               PlayState.won.name: (context, _) => OverlayScreen(
                                     title: 'Level ${game.level.value}  W O N ! ! !',
                                     subtitle: 'Tap to Continue Again',
